@@ -29,17 +29,18 @@ app.post('/getData',function(req,res){
         for(let i = 0;i<20;i++){
             ToleranceArray.push([(Aitem[i][0]+''+Bitem[i][0]),Math.abs(Aitem[i][1]-Bitem[i][1]).toFixed(3)]);
         }
+        sortFc(ToleranceArray);
         res.send({status:200,msg:'请求成功',elitem:{Aitem,Bitem},ToleranceArray});
     }else if(message==='差最小的十组配合'){
         sortFc(Aitem);
         sortFc(Bitem);
-        let ToleranceArray10 = [];
+        let ToleranceArray = [];
         for(let i = 0;i<20;i++){
-            ToleranceArray10.push([(Aitem[i][0]+''+Bitem[i][0]),Math.abs(Aitem[i][1]-Bitem[i][1]).toFixed(3)]);
+            ToleranceArray.push([(Aitem[i][0]+''+Bitem[i][0]),Math.abs(Aitem[i][1]-Bitem[i][1]).toFixed(3)]);
         }
-        sortFc(ToleranceArray10);
-        ToleranceArray10=ToleranceArray10.slice(0,10);
-        res.send({status:200,msg:'请求成功',ToleranceArray10})
+        sortFc(ToleranceArray);
+        ToleranceArray=ToleranceArray.slice(0,10);
+        res.send({status:200,msg:'请求成功',ToleranceArray});
     }else{
         res.send({status:200,msg:'暂无此配套方案'})
     }
