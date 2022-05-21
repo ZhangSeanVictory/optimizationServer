@@ -40,7 +40,7 @@ app.post('/getData',function(req,res){
         for(let i = 0;i<20;i++){
             ToleranceArray.push([(Aitem[i][0]+''+Bitem[i][0]),Math.abs(Aitem[i][1]-Bitem[i][1]).toFixed(3)]);
         }
-        sortFc(ToleranceArray);
+        sortFc(ToleranceArray);//差完再次冒泡排序
         ToleranceArray=ToleranceArray.slice(0,10);
         res.send({status:200,msg:'请求成功',ToleranceArray});
     }else{
