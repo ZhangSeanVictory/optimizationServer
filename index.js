@@ -1,4 +1,6 @@
 let express = require('express');
+let fs = require('fs');
+let xlsx = require('node-xlsx');
 let cors = require('cors');
 let app = express();
 app.use(cors());
@@ -47,7 +49,37 @@ app.post('/getData',function(req,res){
 })
 
 
-
+//写入excel
+app.post('/writeExcel',function(req,res){
+    // console.log(req.body.ToleranceArray);
+    let ToleranceArray = req.body.ToleranceArray;
+    let ToleranceMax = ToleranceArray[ToleranceArray.length-1][1];
+    let ToleranceMin = ToleranceArray[0][1];
+    let ToleranceAver = 0;
+    let ToleranceArrayData = [];
+    let obj = {
+        name:'sheet1',
+        data:[
+            [
+                '配合',
+                '公差'
+            ]
+        ]
+    }
+    for(let i = 0;i<ToleranceArray.length;i++){
+       obj.data.push(ToleranceArray[i]);
+       ToleranceAver+=parseFloat(ToleranceArray[i][1]);
+    }
+    //平均数
+    ToleranceAver = (ToleranceAver/ToleranceArray.length).toFixed(3);
+    console.log(ToleranceAver);
+    obj.data.push(['最大差值','最小差值','平均差值']);
+    obj.data.push([ToleranceMax,ToleranceMin,ToleranceAver]);
+    ToleranceArrayData.push(obj);
+    let buffer = xlsx.build(ToleranceArrayData);
+    fs.writeFileSync('优选优配.xls',buffer);
+res.send({status:200,msg:'写入成功'});
+})
 
 
 
