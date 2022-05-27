@@ -51,7 +51,7 @@ app.post('/getData',function(req,res){
 
 //写入excel
 app.post('/writeExcel',function(req,res){
-    // console.log(req.body.ToleranceArray);
+    console.log(req.body.ToleranceArray);
     let ToleranceArray = req.body.ToleranceArray;
     let ToleranceMax = ToleranceArray[ToleranceArray.length-1][1];
     let ToleranceMin = ToleranceArray[0][1];
