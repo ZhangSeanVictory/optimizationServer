@@ -77,7 +77,7 @@ app.post('/writeExcel',function(req,res){
     obj.data.push([ToleranceMax,ToleranceMin,ToleranceAver]);
     ToleranceArrayData.push(obj);
     let buffer = xlsx.build(ToleranceArrayData);
-    fs.writeFileSync('优选优配.xls',buffer);
+    fs.writeFileSync('C://Users//lenovo//Desktop//优选优配.xls',buffer);
 res.send({status:200,msg:'写入成功'});
 })
 
