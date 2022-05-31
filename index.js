@@ -75,6 +75,8 @@ app.post('/writeExcel',function(req,res){
     console.log(ToleranceAver);
     obj.data.push(['最大差值','最小差值','平均差值']);
     obj.data.push([ToleranceMax,ToleranceMin,ToleranceAver]);
+    obj.data.push(['A零件名称','A零件批号','B零件名称','B零件批号'])
+    obj.data.push([req.body.A[0],req.body.A[1],req.body.B[0],req.body.B[1]]);
     ToleranceArrayData.push(obj);
     let buffer = xlsx.build(ToleranceArrayData);
     fs.writeFileSync('C://Users//lenovo//Desktop//优选优配.xls',buffer);
